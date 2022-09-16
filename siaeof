@@ -1,0 +1,27 @@
+#include <stdio.h>
+int add(int a, int b)
+{
+	return a + b;
+}
+int main()
+{
+	printf("%d\n", sizeof(short));
+	printf("%d\n", sizeof(int));
+	printf("%d\n", sizeof(long));
+	printf("%d\n", sizeof(long long));
+	printf("%d\n", sizeof(float));
+	printf("%d\n", sizeof(double));
+	printf("%d\n", sizeof(char));
+	/*int result;
+	result = add(6, 6); 
+	printf("%d %d",result,age);
+
+	if result = 12;
+	{printf("%d"f)};
+	else
+	{
+		printf("%d"fail)
+	}; */
+	return 0;
+
+}
