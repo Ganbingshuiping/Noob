@@ -1,0 +1,13 @@
+#include <stdio.h>
+//int add(int c, int d)
+//{
+//	return c + d;
+//}
+int main()
+{
+	char arr[] = "abc";
+	printf("%d\n", strlen(arr));
+	//int result = add(3, 4);
+	//printf("%d\n",result);
+	return 0;
+}
