@@ -1,0 +1,15 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	char name[20] = "abc" ;
+	printf("依颜丁真帮你鉴定帅哥\n");
+	printf("输入你认为的帅哥：");
+	scanf("%s", &name);
+	printf("依颜丁真");
+	if (strcmp(name, "郑贵铭")== 0)//函数strcmp()比较字符串,头文件为string.h
+		printf("鉴定为：帅哥\n");
+	else
+		printf("鉴定为：丑逼\n");
+	return 0;
+}
