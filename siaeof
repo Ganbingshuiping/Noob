@@ -5,7 +5,7 @@ int add(int a, int b)
 }
 int main()
 {
-	printf("%d\n", sizeof(short));
+	printf("%d\n", sizeof(short));//函数sizeof()返回数据类型的大小，单位为字符
 	printf("%d\n", sizeof(int));
 	printf("%d\n", sizeof(long));
 	printf("%d\n", sizeof(long long));
@@ -16,7 +16,7 @@ int main()
 	result = add(6, 6); 
 	printf("%d %d",result,age);
 
-	if result = 12;
+	if result = 12;//if语句的错误写法
 	{printf("%d"f)};
 	else
 	{
