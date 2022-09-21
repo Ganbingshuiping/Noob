@@ -1,5 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include <stdio.h>
+//定义一个加法函数
 int add(int c, int d)
 {
 	return c + d;
@@ -8,10 +9,10 @@ int main()
 {
 	int a = 0;
 	int b = 0;
-	scanf("%d%d", &a, &b);
+	scanf("%d%d", &a, &b);//&是取地址符号
 
 
-	int result = add(a, b);
+	int result = add(a, b);//引用加法函数
 
 	printf("%d\n",result);
 	return 0;
