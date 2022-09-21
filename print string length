@@ -6,7 +6,7 @@
 int main()
 {
 	char arr[] = "abc";
-	printf("%d\n", strlen(arr));
+	printf("%d\n", strlen(arr));//函数strlen()返回字符串长度
 	//int result = add(3, 4);
 	//printf("%d\n",result);
 	return 0;
