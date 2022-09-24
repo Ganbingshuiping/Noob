@@ -10,7 +10,7 @@ int main()
       sum = a + sum;
         a++;
     }
-    if (a = 100)
+    //if (a = 100)
         printf("1+2+……+99+100=%d\n", sum);
     return 0;
 }
