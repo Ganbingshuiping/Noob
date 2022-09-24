@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+//从1+2+……+99+100=5050
+int main()
+{
+    int a = 0;
+    int sum = 0;
+    while (a <=100)//while（）{}函数循环
+    {
+      sum = a + sum;
+        a++;
+    }
+    if (a = 100)
+        printf("1+2+……+99+100=%d\n", sum);
+    return 0;
+}
