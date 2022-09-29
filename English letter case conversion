@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+//实现英文大小写的转换
+
+char SW(char a)//没想到试了一下在自定义运用自带的函数，居然可以运行
+{
+        if(97<=a&&a<=122)
+        return  a - 32;
+        else
+            printf("你输入的不是英文字母呢！\n");
+
+}
+
+
+int main()
+{
+
+    char En = 0;
+    char i = 0;
+    printf("请输入一个英文字母：");
+    scanf("%c",&En);
+    if(65<=En&&En<=90)
+        i = En + 32;//英文大小写对应的ASCII码值相差32
+     //直接用多个if会混乱，所以利用if自定义了一个函数
+     else
+        i = SW(En);
+
+    //if(97<=En&&En<=122)
+      //  i = En - 32;//
+
+ printf("%c\n",i);
+
+    return 0;
+}
