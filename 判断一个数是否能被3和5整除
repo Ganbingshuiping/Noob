@@ -3,20 +3,20 @@ int main()
 {
     int num = 0;
     int a = 0;
-    int b = 0;
-    scanf("%d",&num);
+    int b = 1;
+    printf("输入一个数字：");
+    scanf("%d", &num);
     //int a = 3;
    //int b = 3;
-    a = num%3;//取模，能被整除说明模等于0
-
+    a = num % 3;//取模，能被整除说明模等于0
    // printf("%d%d\n",a,b);
-    if(a == 0)//判断模是否等于0
-        b = num%5;//再取一次模
-    if(b == 0)
-    printf("%d能被3和5同时整除\n",num);
+    if (a == 0)//判断模是否等于0
+        b = num % 5;//再取一次模
+    { if (b == 0)
+        printf("%d能被3和5同时整除\n", num);
     else
-        printf("%d不能被3和5同时整除！\n",num);
-
+        printf("%d不能被3和5同时整除！\n", num);
+    }
     return 0;
 
 }
