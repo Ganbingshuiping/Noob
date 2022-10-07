@@ -21,6 +21,6 @@ int main()
 		age--;
 	}
 
-
+     fclose(p_cost);
 	return 0;
 }
