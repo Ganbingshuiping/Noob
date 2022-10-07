@@ -1,0 +1,26 @@
+#include <stdio.h>
+
+int main()
+{
+	float charge = 7000, food = 30, clothes = 200, travle = 2000,total = 0, ratio = .95, age = 18;
+	FILE* p_cost = fopen("cost.txt", "w");
+	printf(" \tage\tcharge\tfood\tclothes\ttravle\ttotal\n");
+	fprintf(p_cost, "\tage\tcharge\tfood\tclothes\ttravle\ttotal\n");//!:not
+	while (age > 0)
+	{
+		total += charge;		total += food*365;		total += clothes;		total += travle;
+		printf("\t % .0f\t % .0f\t % .0f\t % .0f\t % .0f\t % .0f\n",age, charge, food, clothes, travle, total);
+		fprintf(p_cost,"\t% .0f\t% .0f\t% .0f\t% .0f\t% .0f\t% .0f\n", age, charge, food, clothes, travle, total);
+
+		charge *= ratio;
+		food *= ratio;
+		clothes *= ratio;
+		travle *= ratio;
+
+
+		age--;
+	}
+
+
+	return 0;
+}
