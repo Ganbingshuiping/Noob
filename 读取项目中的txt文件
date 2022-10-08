@@ -3,7 +3,7 @@
 int main()
 {
 	char c;
-	FILE* p_cost = fopen("cost.txt", "r");w:write,r:read
+	FILE* p_cost = fopen("cost.txt", "r");//w:write,r:read
 	while (!feof(p_cost))//feof:file/function end of file
 	{
 		fscanf(p_cost, "%c", &c);//c = fgetc(p_cost);//fgetc与putchar连用
