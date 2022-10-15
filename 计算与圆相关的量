@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <math.h>
+
+
+int main()
+{
+	
+		double PI = 3.14159;
+		double r = 1, h = 1, x = 0, S = 0, Sb = 0, Vb = 0, H = 0;//设圆半径为r，圆柱高h，求圆周长s、圆面积S、圆球表面积Sb、圆球体积Vb、圆柱体积H。
+		//定义双精度浮点型变量来接收数据
+		//while循环使得输出结果不结束程序
+		while (1) {
+			printf("(当r=0且h=0时退出程序)\n");
+				printf("\n输入圆的半径和高:");
+				scanf("%lf%lf", &r, &h);//以浮点型的格式接受数据
+				    x = 2 * r * PI,//计算相关量
+					S = PI * r * r,
+					Sb = 4 * S,
+					Vb = 4 * S * r / 3;
+				    H = S * h;
+				printf("\t圆周长  = %.2lf,\n\t圆面积 = %.2lf,\n\t圆球表面积 = %.2lf,\n\t圆球体积 = %.2lf,\n\t圆柱体积 = %.2lf,\n", x, S, Sb, Vb, H);//打印相关量到屏幕上
+				if (r == 0 && h == 0)//if判断语句输入 0 0 结束循环
+					break;
+			
+		}
+		return 0;
+}
