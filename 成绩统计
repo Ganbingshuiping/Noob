@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+int main()
+{
+    int x = 1, pepl = 1, grade = 0;
+    float ok = 0, su = 0;
+    scanf("%d", &x);
+    pepl = x;
+    while (x != 0)
+    {
+        scanf("%d", &grade);
+        if (grade >= 60)
+            ok = ok + 1;
+        if (grade >= 85)
+            su = su + 1;
+
+        x--;
+    }
+    ok = ok * 100, su = su * 100;
+    ok = ok / pepl, su = su / pepl;
+    printf("%.0f%% %.0f%%", ok, su);
+    return 0;
+}
