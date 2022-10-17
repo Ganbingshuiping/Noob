@@ -1,0 +1,17 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+	char a[4] = {0},c;
+	int i = 0;
+	printf("输入：");
+	while((c = getchar())!='\n')//读取输入的数字
+	{
+		a[i] = c;//以字符类型存入数组
+	
+	i++;
+	}
+	printf("输出：%c %c %c %c", a[3], a[2], a[1], a[0]);//倒着以字符格式输出
+	return 0;
+}
