@@ -7,6 +7,39 @@ int main()
     char d = '*',f = ' ';//以*为一个长度
 printf("输入矩形的长和宽：");
 scanf("%d%d",&a,&b);
+if(a ==1 && b!=1)//仅当a=1时的特殊情况
+   {
+      printf("\t\t%2c",d);
+      printf("\n");
+      for(i=0;i<b;i++)
+     {
+         printf("\t\t* *");
+      printf("\n");}
+printf("\t\t%2c",d);
+      printf("\n");
+
+   }
+else
+{
+if(a == b == 1)
+    printf("\t\t*");
+else
+{
+    if(b ==1 && a!=1)//仅当b=1时的特殊情况
+    {
+        printf("\t\t");
+       for(i=0;i<a;i++)//输出长
+   printf("%2c",d);
+    printf("\n\t\t%c",d);
+    for(i=0;i<a;i++)
+        printf("%2c",f);
+        printf("%c\n",d);
+         printf("\t\t");
+       for(i=0;i<a;i++)//输出长
+   printf("%2c",d);
+    }
+    else
+        {
 printf("\t\t");
 for(i=0;i<a;i++)//输出长
    printf("%2c",d);
@@ -15,14 +48,20 @@ for(k=0;k<b-2;k++)//输出高
 {
 
    printf("\t\t%2c",d);
+
 for(i=0;i<a-2;i++)//按层来输出高
    printf("%2c",f);
     printf("%2c",d);
     printf("\n");//换行以输出下一层
+
 }
 printf("\t\t");
 for(i=0;i<a;i++)//输出长封底
    printf("%2c",d);
     printf("\n");
+        }
+}
+}
+
 	return 0;
 }
