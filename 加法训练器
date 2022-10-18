@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+int main()
+{
+
+int num1,num2,sum,lim,result,times=1,right = 0,wrong = 0;
+long t;
+srand((unsigned)time(NULL));//产生一个与时间有关的随机数
+    num1 = rand() % 100;  //使随机数在1~100之间
+    num2 = rand() % 100;
+printf(" 请输入你想训练的次数：");
+scanf("%d",&lim);
+t=time(NULL);//记时开始
+sum = num1+num2;
+for(printf("%d + %d = ",num1,num2);times < lim+1;)
+{
+    scanf("%d",&result);
+    times++;
+    if(result != sum)
+    wrong++;
+    else
+    right++;
+
+   if(result == sum)
+    {
+    srand((unsigned)time(NULL));//产生一个与时间有关的随机数
+    num1 = rand() % 100;  //使随机数在1~100之间
+    num2 = rand() % 100;
+    sum = num1 + num2;
+    printf("正确！\n");
+    if(times>lim)
+        break;
+         printf("下一题：\n\t%d + %d = ",num1,num2);
+    }
+
+   else
+   {
+       if(result!=sum)
+       {
+    printf("\n错误!\n正确答案是:%d",sum);
+    srand((unsigned)time(NULL));//产生一个与时间有关的随机数
+    num1 = rand() % 100;  //使随机数在1~100之间
+    num2 = rand() % 100;
+    sum = num1 + num2;
+    if(times>lim)//限制次数
+        break;
+    printf("\n下一题：\n\t%d + %d = ",num1,num2);
+       }
+
+   }
+
+
+}
+t=time(NULL)-t;
+printf("\n你答了%d题，用时%d秒。\n答对了 %d 题，答错了 %d 题\n",times-1,t,right,wrong);
+	return 0;
+}
