@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int a,b,i,k;
+    char d = '*',f = ' ';//以*为一个长度
+printf("输入矩形的长和宽：");
+scanf("%d%d",&a,&b);
+printf("\t\t");
+for(i=0;i<a;i++)//输出长
+   printf("%2c",d);
+    printf("\n");
+for(k=0;k<b-2;k++)//输出高
+{
+
+   printf("\t\t%2c",d);
+for(i=0;i<a-2;i++)//按层来输出高
+   printf("%2c",f);
+    printf("%2c",d);
+    printf("\n");//换行以输出下一层
+}
+printf("\t\t");
+for(i=0;i<a;i++)//输出长封底
+   printf("%2c",d);
+    printf("\n");
+	return 0;
+}
