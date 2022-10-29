@@ -1,0 +1,22 @@
+#include <stdio.h>
+
+//2、输出2~2000之间的完全数。若正整数n的所有不同正因数之和等于n本身,称整数n为完全数。
+//例如，6的不同正因数为1,2，3，而6=1+2+3，则6是一个完全数。
+int main()
+{
+    int num1,num2 = 1,num3 = 0,num4 = 0;
+for(num1=2;num1<=2000;num1++)//循环2~2000
+{
+for(num4=0,num2 = 1;num1!=num2;num2++)//num4,num2初始化使循环持续运行，循环判断因数
+{
+    num3 = num1%num2;
+    if(num3==0)//判断因数
+        num4 += num2;//保留因数并求和
+
+}
+if(num4 == num1)//判断输出完全数
+    printf("%d是完全数\n",num4);
+}
+
+	return 0;
+}
