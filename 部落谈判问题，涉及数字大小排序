@@ -1,0 +1,34 @@
+//小蓝只能邀请两个部落参加，花费的金币数量为两个部落的人数之和，
+//谈判的效果是两个部落联合成一个部落（人数为原来两个部落的人数之和）。
+#include<stdio.h>
+int main()
+{
+    int limit_0=0,men[100],fam,golden=0,change,limit_1;
+    scanf("%d",&fam);
+    change = fam;
+    for(;fam!=0;fam--)//实现同时输入多项数据
+    {
+    scanf("%d",&men[limit_0]);
+    limit_0++;
+    }
+    fam=change;
+    for(limit_0=0;limit_0<fam;limit_0++)//将输入的人数从小到大排，使得每次谈判都花费最少金币
+    {
+        for(limit_1=limit_0+1;limit_1<fam;limit_1++)
+        {
+            if(men[limit_0]>men[limit_1])//判断大小，成真则交换
+             {
+              change = men[limit_1];
+              men[limit_1]=men[limit_0];
+              men[limit_0]=change;
+             }
+        }
+    }
+for(limit_1=1;limit_1<fam;limit_1++)//依次相加
+{
+    men[0]=men[0]+men[limit_1];
+    golden+=men[0];
+}
+printf("花费最少为%d",golden);
+    return 0;
+}
