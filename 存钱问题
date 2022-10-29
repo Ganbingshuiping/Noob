@@ -1,0 +1,18 @@
+#include <stdio.h>
+#include <math.h>
+//5、Jack 将100 美元存入年利率8%的账户。从第二年开始在每年的第一天，他会从这个账户里取出10 美元。
+//编写一个程序，计算多少年后Jack会取完账户的钱？一共取了多少钱？
+int main()
+{
+   float save = 100,money = 0;
+   int years = 0;
+   for(;save>0;save -= 10)//循环直至save<=0
+   {
+    save = save*(1.08);//年利率运算
+    money = 10+money;
+    years++;
+   }
+    money = save + money;//修正取出的钱
+    printf("%d年后Jack取完了所有的钱。\n一共取了%.2f美元",years,money);
+	return 0;
+}
