@@ -1,0 +1,26 @@
+/*
+二、写一个C程序，它读入一个目录路径，递归地输出路径下的文件，以及所有子文件夹中的文件。
+（以上题目在任意操作系统运行均可）*/
+/*实在不理解递归的输出是如何运行的
+就使用了cmd命令的方法，希望能加入开源社区学习更深层的内容*/
+#include<stdio.h>
+int main()
+{
+    char ctr[500],ch;
+    FILE * control = fopen("cost.bat","w");//生成一个文件类型的指针和.bat批处理文件
+    int num = 0;
+
+    while((ch=getchar())!='\n')//输入目录路径
+        {
+        ctr[num]=ch;
+    //并编写命令
+        if(num==1)
+    fprintf(control,"%c\ncd %c",ctr[1],ctr[0]);
+    fprintf(control,"%c",ctr[num]);
+        num++;
+    }
+    fprintf(control,"\ndir /s/a/o:n");//dir /s/a/o:n——将文件中的子文件一并打印出来
+    fclose(control);
+        system("cost.bat");//利用cmd运行批处理文件
+    return 0;
+}
