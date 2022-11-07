@@ -1,0 +1,17 @@
+#include<stdio.h>
+int main()
+{
+    int arr[10][10]={0},num1,num2;//定义一个二维数组
+    arr[0][0]=1;
+    for(num1=1,num2=0;num1<10;num1++)
+        {
+            arr[num1][num2] = arr[0][0];
+            for(num2=1;num2<num1;num2++)//利用二维数组的性质进行杨辉三角的阶梯式运算
+               {
+                arr[num1][num2]=arr[num1-1][num2-1]+arr[num1-1][num2];
+                printf("%2d ",arr[num1][num2]);
+               }
+                printf("\n");
+         }
+    return 0;
+}
