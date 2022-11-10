@@ -1,0 +1,52 @@
+//{q,w,e,r,t,y,u,M,o,p,e}
+//Meeopqrtuwy
+#include <stdio.h>
+int main()
+{
+    char arr1[11]="qwertyuMope",swi,arr2[11]="qwertyuMope";;
+    int limit,limit_1,compare=0,exchange=0,num;
+    for(limit=0;limit<11;limit++)
+    {
+        for(limit_1=limit+1;limit_1<11;limit_1++)//从后一项开始循环
+        {
+                if(arr1[limit]>arr1[limit_1])//遇到比自己小的就交换元素，下角标不变
+                {
+                    swi=arr1[limit];
+                    arr1[limit]=arr1[limit_1];
+                    arr1[limit_1]=swi;
+                    exchange++;
+                }
+            compare++;
+        }
+
+    }
+    printf("冒泡法：\n");
+    for(limit=0;limit<11;limit++)
+       {printf("%c",arr1[limit]);}
+        printf("\nTimes of compare:%d\nTimes of exchange:%d\n",compare,exchange);
+
+    printf("选择法：\n");
+    exchange = 0,compare = 0;//初始化
+    for(limit=0;limit<11;limit++)
+    {
+        for(limit_1=limit+1,num=limit;limit_1<11;limit_1++)//从后一项开始循环
+        {
+                if(arr2[limit_1]<arr2[num])
+                {
+                    num=limit_1;//找到更小的值后下角标更换，元素不变
+                }
+                compare++;
+
+        }           //将最小项和原来位置的元素互换
+                    swi=arr2[num];
+                    arr2[num]=arr2[limit];
+                    arr2[limit]=swi;
+                    exchange++;
+
+    }
+    exchange-=1;//循环中多加了1
+     for(limit=0;limit<11;limit++)
+        {printf("%c",arr2[limit]);}
+        printf("\nTimes of compare:%d\nTimes of exchange:%d\n",compare,exchange);
+    return 0;
+}
