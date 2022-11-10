@@ -1,0 +1,28 @@
+#include<stdio.h>
+#include<time.h>
+#define N 7
+void  print(int * n,int limit)
+{
+    for(int i = 0;i<N;i++)
+        printf("%7d",*(n+i));
+    printf("\n");
+
+}
+int main()
+{
+    int n[N];
+    srand(time(NULL));
+    for(int i = 0;i<N;n[i++]=rand()%100);
+    printf("before sorting:\n");
+    print(n,N);
+    printf("\nbeing sorting:\n");
+    for(int i=1;i<N;i++)
+    {
+        for(int j=i,t;j>0 && n[j]<n[j-1];j--)
+        {
+            t=n[j],n[j]=n[j-1],n[j-1]=t;
+            print(n,N);
+        }
+    }
+    return 0;
+}
