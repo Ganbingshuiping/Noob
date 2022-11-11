@@ -1,0 +1,19 @@
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+    char num1[10]={0};
+    int i,sum=0,ch;
+    printf("\n输入一个十六进制数：");
+    for(i=0;(ch=getchar())!='\n';i++)//以字符形式输入数据
+     num1[i]=ch;
+    for(sum=0,i=i-1,ch=0;i>=0;i--,ch++)
+    {
+        if(num1[ch]>='A' && num1[ch]<='F')//根据ASCII码表大写字母-55，数字-48
+        sum += ((num1[ch]-55) * pow(16,i));//对字母转换
+        else
+        sum +=((num1[ch]-48) * pow(16,i));//对数字转换
+    }
+    printf("转换为十进制：%d",sum);
+    return 0;
+}
