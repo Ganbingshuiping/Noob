@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdlib.h>
+void print_m(int*m,int col)
+{
+      for(int i=0;i<12;i++)
+        {
+            if(i%col==0)
+                printf("\n");
+            printf("%7d",*m+i);
+        }
+}
+int main()
+{
+    int m[3][4],*p=m[0];
+    printf("\n");
+    for(int row=0;row <3;row++)//未初始化产生的垃圾数据
+        {
+            for(int col=0;col<4;col++)
+                printf("%7d",m[row][col]);
+            printf("\n");
+
+        }
+
+    for(int row=0;row <3;row++)//输入数据
+        for(int col=0;col<4;col++)
+            m[row][col] = (row+1)*(col+1);
+        printf("\n");
+    for(int row=0;row <3;row++)
+        {
+            for(int col=0;col<4;col++)
+                printf("%7d",m[row][col]);
+            printf("\n");
+        }
+          printf("利用指针:");
+    for(int i=0;i<12;i++)
+        {
+            if(i%4==0)
+                printf("\n");
+            printf("%7d",*p+i);
+        }
+        printf("\n");
+        printf("直观观察地址：（储存的数据在计算机内呈线性）\n");
+    for(int i=0;i<12;i++)
+        {
+            printf("*(m[0]+%d)=*(%p)=%7d\n",i,p+i,*p+i);
+        }
+        printf("自定义指针函数：");
+        print_m(m[0],4);
+    return 0;
+}
