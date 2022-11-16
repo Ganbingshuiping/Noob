@@ -1,0 +1,29 @@
+/*金币问题
+国王给他的一个骑士发放金币，在他守卫的第一天发放一枚金币，在接下来的两天每天发两枚金币，继续在接下来的3天每天发3枚金币，以此类推，在连续N天中每天发N枚金币。
+请设计一个程序，要求在给定天数的情况下，国王将给骑士共发多少枚金币。
+测试数据：计算第6、7、10、100、1000天的金币数目。*/
+#include <stdio.h>
+#include <math.h>
+//测试数据：计算第6、7、10、100、1000天的金币数目。
+int main()
+{
+    int golden = 0,day = 0,out = 0,date,limit;//out是发放金币的数量，golden是骑士得到的总金币
+    while((getchar())!='\n')//实现同时输入多组数据
+    {scanf("%d",&date);
+    for(out=1;day!=date;out++)
+    {
+        for(limit=out;limit>0;limit--)//循环发放金币
+        {
+            golden += out;
+            day++;
+            if(day==date)//限制循环次数
+                break;
+        }
+    }
+
+    printf("%d天，共发放了%d枚金币\n",day,golden);
+
+    golden = 0,day = 0,out = 0;//重新初始化
+    }
+    return 0;
+}
