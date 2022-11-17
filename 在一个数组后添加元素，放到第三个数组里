@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <math.h>
+#include <string.h>
+void strcat_(const char *s,char *t)
+{
+    int location;
+    for(location=0;*(t+location)!='\0';location++);
+    for(int i =0;*(s+i)!='\0';*(t+location)=*(s+i),i++,location++);
+         *(t+location)='\0';
+
+
+}
+int main()
+{
+    char s1[]="666",s2[99],s3[99];
+   /* printf("\ns1 = %s\n",s1);
+    printf("s2 = %s\n",s2);
+    printf("s3 = %s\n",s3);*/
+
+   printf("输入s2：");
+    gets(s2);
+   /* printf("\ns1 = %s\n",s1);
+    printf("s2 = %s\n",s2);
+    printf("s3 = %s\n",s3);*/
+
+    strcpy(s3,s1);
+    strcat_(s2,s3);
+    printf("\ns1 = %s\n",s1);
+    printf("s2 = %s\n",s2);
+    printf("s3 = %s\n",s3);
+
+    return 0;
+}
