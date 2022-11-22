@@ -1,0 +1,43 @@
+#include<stdio.h>
+int base10(int n)//将十进制的千位数分离并相加的函数 
+{
+	int i = n%10;
+	if(n<10)
+		return n;//分离至最后一位时停止 
+	else
+		return base10(n/10)+i;//利用递归将每次返回值相加 
+} 
+int base12(int n)//同理可得出十二进制各位相加的函数 
+{
+	int i = n%12;
+	if(n<13)
+		return n;
+	else
+		return base12(n/12)+i;
+	
+}
+int base16(int n)//同理可得出十六进制各位相加的函数 
+{
+	int i = n%16;
+	if(n<17)
+		return n;
+	else
+	    return base16(n/16)+i;		
+}
+int main() 
+{
+	int num=1000,count=0;
+	for(;num<10000;num++)
+	{
+		//base10(num);
+	if(base10(num)==base12(num)&&base10(num)==base16(num))//调用函数并判断各自的位数和是否相等 
+		{
+		printf(" %4d ",num);
+		count++;
+		if(count%10==0)//提高观感 
+			printf("\n");
+		}
+	}
+	printf("\n共有%2d个",count);
+    return 0;
+}
