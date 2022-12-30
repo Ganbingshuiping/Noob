@@ -1,0 +1,210 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>  /// strlen, strcpy, strcat, strcmp
+#include <windows.h>
+
+/// linked table/list
+struct stu_info
+
+{
+         char stu_num[10];  //学号
+         char stu_name[8];  //姓名
+         char stu_sex[2];    //性别
+         int stu_score;    //成绩
+         struct stu_info *Next;
+};
+///输出函数，从链表头输出学生信息 
+void stu_select(struct stu_info * head) {
+    if(head == NULL)
+        printf("stu_select: 无学生信息.\n");
+    else {
+        for(; head != NULL; head=head->Next)
+            printf("*****学号：%s*****\n", head->stu_num);
+    }
+}
+//查找函数，通过学号查找学生信息 
+void stu_fine(struct stu_info *head,char stu_num[]) {
+	int i=0;
+    if(head == NULL)
+        printf("stu_select: 无学生信息.\n");
+    else {
+	    for(;head!=NULL; head=head->Next)///遍历链表，寻找符合的结点 
+			{
+			if(strcmp(head->stu_num,stu_num)==0)
+				{
+				printf("*****学号：%s，姓名：%s，性别：%s，成绩：%d*****\n\n\n", head->stu_num,head->stu_name,head->stu_sex,head->stu_score);
+				i++;
+				}
+			} 
+			if(i==0)
+				printf("stu_fine：无该学生信息.\n");
+		}
+}
+/// 输入一个学生函数 
+struct stu_info * stu_create(struct stu_info * head, char stu_num[],char stu_name[],char stu_sex[], int stu_score) {
+    if(head != NULL)
+        return head;
+    head = (struct stu_info *)malloc(sizeof(struct stu_info));
+	for(int i=0;i<10;i++)///限制输入数组，防止超出范围
+{
+    head->stu_num[i] = stu_num[i];
+if(i<8)
+	head->stu_name[i] = stu_name[i];
+if(i<2)
+	head->stu_sex[i] = stu_sex[i];
+}
+    head->stu_score = stu_score;
+    head->Next = NULL;
+    printf("stu_insert: 已录入.\n");
+    stu_select(head);
+    return head;
+};
+/// 调用输入函数循环输入学生 
+struct stu_info * stu_insert(struct stu_info * head, char stu_num[],char stu_name[],char stu_sex[], int stu_score) {
+    struct stu_info * p1, * p2, * p;
+    p = (struct stu_info *)malloc(sizeof(struct stu_info));
+	for(int i=0;i<10;i++)///限制输入数组，防止超出范围 
+{
+    p->stu_num[i] = stu_num[i];
+if(i<8)
+	p->stu_name[i]=stu_name[i];
+if(i<2)
+	p->stu_sex[i]=stu_sex[i];
+}
+    p->stu_score = stu_score;
+    p->Next = NULL;
+    if(head == NULL)
+        head = stu_create(head, stu_num,stu_name,stu_sex,stu_score);
+    else {
+        for(p1=p2=head; strcmp(p1->stu_num,p->stu_num)>=0 && p1->Next != NULL; p2=p1, p1=p1->Next) ;
+        if(strcmp(p1->stu_num,p->stu_num)<0) {
+            if(p1 == head) {
+	///链表的开头 
+                p->Next = p1;
+                head = p;
+            }
+            else{
+	///链表的中间部分 
+                p2->Next = p;
+                p->Next = p1;
+            }
+        }
+        else {
+	///链表的结尾 
+            if(p1->Next == NULL) {
+                p1->Next = p;
+                p->Next = NULL;
+            }
+            else {
+                printf("stu_insert: 未知信息.\n");
+            }
+        }
+                printf("stu_insert: 已录入.\n");
+        stu_select(head);
+    }
+    return head;
+};
+/// 删除一个结点的函数 
+struct stu_info * stu_delete(struct stu_info * head, char stu_num[]) {
+    struct stu_info * p1, * p2;
+    struct stu_info * p; /// 用来接受存放将释放结点所占的空间 
+    if(head == NULL) {
+        printf("stu_delete: 无该学生信息，无法删除.\n");
+        return head;
+    }
+
+    for(p1=p2=head; strcmp(p1->stu_num,stu_num)!= 0 && p1->Next != NULL; p2=p1, p1=p1->Next);
+
+    if(strcmp(p1->stu_num,stu_num) == 0) {
+        p = p1;
+        if(p1 == head) {
+            head = head->Next;
+        }
+        else {
+            if(p1->Next == NULL) {
+                p2->Next = NULL;
+            }
+            else {
+                p2->Next = p1->Next;
+            }
+        }
+        printf("stu_delete: 已删除学号为%s的学生的信息.\n",p1->stu_num);
+        free(p);  /// 释放结点空间 
+    }
+    else {
+        printf("stu_delete: stu_num %s can NOT be found to delete.\n",stu_num);
+    }
+    stu_select(head);
+    return head;
+};
+
+/// 输入函数 
+struct stu_info * stu_insert_x(struct stu_info * head) {
+    char stu_num[10],stu_name[8],stu_sex[2];
+    int stu_score;
+    while(1) {
+		printf("录入阶段：\n"); 
+        printf("stu_insert_x: 请依次输入学号、姓名、性别、成绩 (仅学号为x时 EXIT): ");
+        scanf("%s%s%s%d",stu_num,stu_name,stu_sex,&stu_score);
+        if(stu_num[0]== 'x') {
+            printf("stu_insert_x:学号为x时退出\n");
+            break;
+        }
+	system("cls");
+        head = stu_insert(head, stu_num,stu_name,stu_sex,stu_score);
+    }
+    return head;
+};
+
+/// 调用删除函数循环删除 
+struct stu_info * stu_delete_x(struct stu_info * head) {
+    char stu_num[10];
+    while(1) {
+		printf("删除阶段：\n");
+        printf("stu_delete_x: 输入学号以删除学生信息(学号为x时 to EXIT): ");
+        scanf("%s", stu_num);///输入学号以删除学生信息 
+        if( stu_num[0]== 'x') {
+            printf("stu_delete_x: x to EXIT.\n");
+            break;
+        }
+		system("cls");
+        head = stu_delete(head, stu_num);
+    }
+    return head;
+};
+/// 调用查找函数 
+struct stu_info * stu_fine_x(struct stu_info * head) {
+    char stu_num[10];
+    while(1) {
+		stu_select(head);
+		printf("查找阶段：\n"); 
+        printf("stu_fine_x: 输入学号以查找学生信息(学号为x时 EXIT): ");
+        scanf("%s", stu_num);
+        if(stu_num[0]=='x') {
+            printf("stu_fine_x:当学号为x时 EXIT");
+            break;
+        }
+			system("cls");
+	stu_fine(head,stu_num);
+    }
+    return head;
+};
+int main(){
+    struct stu_info * head=NULL;
+	int chioce;
+while(1){
+	stu_select(head);
+    head = stu_insert_x(head);
+    head = stu_delete_x(head);
+    head = stu_fine_x(head);
+	printf("是否继续操作系统（1 to continue,2 to exit）:");
+	scanf("%d",&chioce);
+		system("cls");
+	if(chioce==2)
+		break;
+	else if(chioce==1)
+		continue;
+}
+    return 0;
+}
