@@ -1,0 +1,121 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>  /// strlen, strcpy, strcat, strcmp
+/// linked tablest
+struct stu
+
+{
+         char num[5];  //学号
+		 int Average; //平均成绩 //因为内存空间是连续的，所以以%s输出num时会将name里的字符一并输出，这里将其内存隔开 
+         char name[8];  //姓名
+         int Chinese;    //语文成绩 
+         int Math;    //数学成绩
+		 int English; //英语成绩 
+         struct stu *Next;
+};
+///输出函数，从链表头输出学生信息，向study.txt文件中输出 
+void stu_count(struct stu * head,FILE *fp) {
+	fp=fopen("study.txt","w");	
+    if(head == NULL)
+        printf("stu_select: 无学生信息.\n");
+    else {
+        for(; head != NULL; head=head->Next)
+			fprintf(fp,"学号：%s\n姓名：%s\n语文成绩：%d\n数学成绩：%d\n英语成绩：%d\n平均成绩：%d\n\n",head->num,head->name,head->Chinese,head->Math,head->English,head->Average);
+    }
+	fclose(fp);
+}
+//读取文件函数，读取study.txt并将其内容打印到屏幕上 
+void stu_read(FILE *fp){
+	char c;
+	fp=fopen("study.txt","r");
+	printf("从文件中读取\n"); 
+	while (!feof(fp)){//直到文件结尾停止读取 
+		fscanf(fp, "%c", &c);
+		printf("%c", c);
+}
+	fclose(fp);
+}
+/// 创建一个学生信息结点的函数 
+struct stu * stu_create(struct stu * head, char num[],char name[],int Chinese ,int Math ,int English) {
+    if(head != NULL)
+        return head;
+    head = (struct stu *)malloc(sizeof(struct stu));
+	for(int i=0;i<8;i++)///限制输入数组，防止超出范围
+{
+	head->name[i] = name[i];
+if(i<5) 
+	 head->num[i] = num[i];
+}
+	head->Chinese = Chinese;
+	head->Math = Math;
+    head->English = English;
+	head->Average=(head->Chinese+head->Math+head->English)/3;//取平均数 
+    head->Next = NULL;
+    return head;
+};
+/// 调用输入函数循环输入学生信息 
+struct stu * stu_insert(struct stu * head, char num[],char name[],int Chinese , int Math,int English){
+    struct stu * p1, * p2, * p;
+    p = (struct stu *)malloc(sizeof(struct stu));
+	for(int i=0;i<8;i++)///限制输入数组，防止超出范围
+{
+	p->name[i] = name[i];
+if(i<5) 
+	 p->num[i] = num[i];
+}
+	p->Chinese = Chinese;
+	p->Math = Math;
+    p->English = English;
+    p->Average=(p->Chinese+p->Math+p->English)/3;//取平均数 
+    p->Next = NULL;
+    if(head == NULL)
+        head = stu_create(head,num,name,Chinese ,Math,English);
+    else {
+        for(p1=p2=head; strcmp(p1->num,p->num)<=0 && p1->Next != NULL; p2=p1, p1=p1->Next) ;
+        if(strcmp(p1->num,p->num)>0) {
+            if(p1 == head) {
+	///链表的开头 
+                p->Next = p1;
+                head = p;
+            }
+            else{
+	///链表的中间部分 
+                p2->Next = p;
+                p->Next = p1;
+            }
+        }
+        else {
+	///链表的结尾 
+            if(p1->Next == NULL) {
+                p1->Next = p;
+                p->Next = NULL;
+            }
+            else {
+                printf("stu_insert: 未知信息.\n");
+            }
+        }
+    }
+    return head;
+};
+
+/// 输入函数 
+struct stu * stu_insert_x(struct stu * head) {
+    char num[5],name[8];
+    int Chinese,Math,English;
+    for(int i=0;i<3;i++) {
+		printf("录入阶段：\n"); 
+        printf("请依次输入学号、姓名、语文成绩、数学成绩、英语成绩\n: ");
+        scanf("%s%s%d%d%d",num,name,&Chinese,&Math,&English);//输入学生信息，以便接下来利用这些信息创建链表结点 
+	    printf("stu_insert: 已录入.\n");
+        head = stu_insert(head,num,name,Chinese,Math,English);
+    }
+    return head;
+};
+int main(){
+    struct stu * head=NULL;
+	FILE *fp;
+    head = stu_insert_x(head);//建立链表 
+	stu_count(head,fp);//写入文件 
+	stu_read(fp);//读取文件 
+    return 0;
+}
