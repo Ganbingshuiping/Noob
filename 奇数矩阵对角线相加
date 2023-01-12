@@ -1,0 +1,17 @@
+#include <stdio.h>
+#define N 5//奇数矩阵都可求对角线 
+int main()
+{
+int arr[N][N]={0},sum1=0,sum2=0,*p=arr[0];
+for(int i=0;i<N;i++){
+	for(int j=0;j<N;j++){
+	scanf("%d",p++);
+}
+}
+for(int i=0,j=N-1;i<N;i++,j--){//将矩阵按线性列出，并一一与角标对应可得出规律 
+		sum1+=arr[i][i];
+		sum2+=arr[i][j];
+}
+printf("\n%d\t%d\n",sum1,sum2);
+    return 0; 
+}
