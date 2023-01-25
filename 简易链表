@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+struct cost{
+	int v;
+	int w;
+	struct cost *next;
+};
+//创建表头，也就是第一个结点,一个链表就基本创建完成了 
+struct cost *creat(int v,int w,struct cost *head){
+	if(head!=NULL)
+		return head;
+	head = (struct cost *)malloc(sizeof(struct cost));
+	head->v=v;
+	head->w=w;
+	head->next=NULL;
+	return head;
+};
+struct cost *insert(int v,int w,struct cost *head){
+	
+	struct cost *p,*p1;
+	p=(struct cost *)malloc(sizeof(struct cost));
+	p->v=v;
+	p->w=w;
+	p->next=NULL;
+	if(head==NULL)
+		head=creat(v,w,head);
+	else
+		{
+			p1=head;
+		for(;p1->next!=NULL;p1=p1->next);//寻至链表结尾 
+			p1->next=p;
+		}
+	return head;
+};
+struct cost *insert_x(struct cost *head){
+	int v,w;
+	while(1){
+	scanf("%d%d",&v,&w);
+	if(v==0&&w==0)
+		break;
+	head=insert(v,w,head); 
+}
+	return head;
+};
+void read(struct cost *head){
+	for(;head!=NULL;head=head->next){ 
+		printf("价格：%d,价值：%d\n",head->v,head->w);
+	}
+} 
+int main(){
+	struct cost *head=NULL;
+	head=insert_x(head);
+	read(head);
+return 0;
+} 
