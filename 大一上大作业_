@@ -1,0 +1,136 @@
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+#include <string.h>
+#define rat 3//感染率  人/天 
+#define cle 0.8//方舱收容率
+#define TIME 7
+#define size 1000
+#define total_pep 2999999//人口共300万人，
+#define ratio_pep 1//感染人数初始为1
+#define cost_sh 200//方舱每人每天花费 
+#define lock 60000000//人口封锁日费用 
+int arr[50]={0};
+unsigned long long sum=0,lo_cost=0;
+struct rpep_{
+    
+    int day;
+	int infect; 
+	int collect;
+    struct rpep_ * Next;
+};
+void cost(int collect,int day,FILE* fp3,FILE* fp4)
+{
+	int k;
+	if(collect>1000)//当方舱住人达1000时封锁 
+{
+		sum+=(collect*cost_sh+lock);
+		lo_cost+=lock;
+		fprintf(fp4,"\t%d\t%d\n",day,lo_cost);
+}
+	else
+	sum+=(collect*cost_sh);
+	if(sum>lock)
+{
+	k=sum/10000;
+	fprintf(fp3,"\t%d\t%dE+04\n",day,k);
+}
+else
+	fprintf(fp3,"\t%d\t%d\n",day,sum);	
+}
+void std_select(struct rpep_ * head,int arr1[],FILE* fp1,FILE* fp2,FILE* fp3,FILE* fp4)
+{
+	int ID;
+
+        for(; head != NULL; head=head->Next)
+{
+			arr1[head->day]=head->collect;
+		if(head->day>10)
+		arr1[head->day]-=arr1[head->day-7];
+		ID=arr1[head->day]/size+1;
+            fprintf(fp1,"\t%d\t%d\t%d\n", head->day,head->infect,arr1[head->day]);
+			fprintf(fp2,"\t%d\t%d\n",head->day,ID);
+		cost(arr1[head->day],head->day,fp3,fp4);
+}
+
+}
+/// 2.1 insert the 1st one
+struct rpep_ * std_create(struct rpep_ * head, int day, int infect,int collect,FILE* fp1,FILE* fp2,FILE* fp3,FILE* fp4)
+{
+    if(head != NULL)
+        return head;
+    head = (struct rpep_ *)malloc(sizeof(struct rpep_));
+    head->day = day;
+    head->infect = infect;
+	head->collect = collect;
+    head->Next = NULL;
+	std_select(head,arr,fp1,fp2,fp3,fp4);
+    return head;
+};
+
+/// 2.2 insert one std
+struct rpep_ * std_insert(struct rpep_ * head, int day, int infect,int collect,FILE* fp1,FILE* fp2,FILE* fp3,FILE* fp4)
+{
+    struct rpep_ *p1, * p;
+    p = (struct rpep_ *)malloc(sizeof(struct rpep_));
+    p->day = day;
+    p->infect = infect;
+	p->collect = collect;
+    p->Next = NULL;
+    if(head == NULL)
+        head = std_create(head,day,infect,collect,fp1,fp2,fp3,fp4);
+    return head;
+
+};
+struct rpep_* ratio(int *rpep,int *pep,int *day,struct rpep_ *head,int *collect,FILE* fp1,FILE* fp2,FILE* fp3,FILE* fp4)//传染函数可得出感染者数量 
+{
+	int a,d;
+	(*day)++;
+	*collect+= (*rpep) * cle;//收容
+	if(((*rpep)*(rat+1))<*pep)
+	{
+	a = (*rpep)*(rat+1);//传染 
+	(*pep)-=a;
+	(*rpep)=a-(*collect);
+	}
+	else
+	{
+		if(*pep>0)
+		{
+		(*rpep)+=(*pep);
+		*pep=0;
+		}
+		else
+		(*rpep)*=(1-cle);
+	}
+	head=std_insert(head,*day,*rpep,*collect,fp1,fp2,fp3,fp4);
+return head;
+};
+struct rpep_ *infected_day_x(int rpep,int pep,struct rpep_ *head)
+{ 
+	int day=1,collect=0;
+	FILE* fp1 = fopen("infected_day_x.txt", "w");
+	FILE* fp2 = fopen("shelter_day_x.txt", "w");
+	FILE *fp3=fopen("total_cost.txt","w");
+	FILE *fp4=fopen("cost_of_lock_down_population_day_x.txt","w");
+	fprintf(fp1, "\tday\trpep\tcollect\n");
+	fprintf(fp2, "\tday\tshelter_ID\n");
+	fprintf(fp3, "\tday\tcost_sh\n");
+	fprintf(fp4,"\tday\tcost_of_lock\n");
+	while (rpep>0)
+	{	
+		ratio(&rpep,&pep,&day,head,&collect,fp1,fp2,fp3,fp4);	
+	}
+    fclose(fp1);
+	fclose(fp2);
+	fclose(fp3);
+	fclose(fp4);
+return head;
+};
+int main()
+{
+	struct rpep_ *head=NULL;
+	head=infected_day_x(ratio_pep,total_pep,head);
+	printf("\t*****已生成文本*****");
+    return 0;
+}
