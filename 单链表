@@ -1,0 +1,141 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+//集合A结构体 
+struct A{
+	char letter;
+	struct A *next;
+}; 
+//集合B结构体 
+struct B{
+	char letter;
+	struct B *next;
+};
+struct C{
+	char letter;
+	struct C *next;
+};
+//建立链表的函数，只能从末端接入，不可插入
+//creat_B,creat_C与creat_A相同原理 
+struct A *creat_A(struct A *headA,char letter){
+	struct A*p,*p1;
+	if(headA==NULL){
+	//空头指针则建立第一个结点 
+	    headA = (struct A *)malloc(sizeof(struct A));
+		headA->letter=letter;
+		headA->next=NULL; 
+}	
+	else{
+	for(p=headA;p->next!=NULL;p=p->next);//寻至链表最后一个结点，将新的结点链接至其后 
+	p1= (struct A *)malloc(sizeof(struct A));
+	p->next=p1;
+	p1->letter=letter;
+	p1->next=NULL;
+}
+	return headA;
+}
+struct B *creat_B(struct B *headB,char letter){
+	struct B*p,*p1;
+	if(headB==NULL){
+
+	    headB = (struct B *)malloc(sizeof(struct B));
+		headB->letter=letter;
+		headB->next=NULL; 
+}	
+	else{
+	for(p=headB;p->next!=NULL;p=p->next);
+	p1= (struct B *)malloc(sizeof(struct B));
+	p->next=p1;
+	p1->letter=letter;
+	p1->next=NULL;
+}
+	return headB;
+}
+struct C *creat_C(struct C *headC,char letter){
+	struct C*p,*p1;
+	if(headC==NULL){
+
+	    headC = (struct C *)malloc(sizeof(struct C));
+		headC->letter=letter;
+		headC->next=NULL; 
+}	
+	else{
+	for(p=headC;p->next!=NULL;p=p->next);
+	p1= (struct C *)malloc(sizeof(struct C));
+	p->next=p1;
+	p1->letter=letter;
+	p1->next=NULL;
+}
+	return headC;
+}
+//差运算 
+struct C*opera(struct A * headA,struct B* headB,struct C * headC){
+	struct A*p1=headA, *p=headA;
+	int t=1;
+	for(;p1!=NULL;p1=p1->next){
+	t=1;
+	for(struct B*p2=headB;p2!=NULL;p2=p2->next){
+		if(p1->letter==p2->letter)
+			t=0;
+}
+		if(t!=0)
+			headC=creat_C(headC,p1->letter);  
+}
+	return headC;
+}
+//释放链表结点函数 
+struct C * alfre(struct C * headC){
+	for(struct C * p1=headC;p1!=NULL;){
+	struct C * p2=p1;
+	p1=p1->next; 
+	free(p2);
+}
+	return headC=NULL;
+} 
+int main(){
+	struct A *headA=NULL;
+	struct B *headB=NULL;
+	struct C *headC=NULL;
+	int t=1;
+	printf("输入集合A:\n");
+	for(char a;(a=getchar())!='\n';){
+	headA=creat_A(headA,a);//通过getchar函数可不断输入 
+}
+	printf("输入集合B:\n");
+	for(char b;(b=getchar())!='\n';){
+	headB=creat_B(headB,b);
+}
+
+
+//交运算，通过嵌套循环穷举两个链表中的元素是否相同，相同则保存，否则略过 
+for(struct A*p1=headA, *p=headA;p1!=NULL;p1=p1->next){
+	for(struct B*p2=headB;p2!=NULL;p2=p2->next){
+		if(p1->letter==p2->letter){
+			headC=creat_C(headC,p1->letter); 
+}
+}
+}
+printf("\n交运算："); 
+//将运算后的数据放入链表C中 
+for(struct C *p=headC;p!=NULL;p=p->next){
+	printf("%c ",p->letter);
+}
+headC=alfre(headC);//释放链表空间，将链表C清空  
+//并运算，进行A-B操作后将B中的元素全部接入链表C中 
+headC=opera(headA,headB,headC);//并运算的第一步与差运算相同 
+for(struct B*p=headB;p!=NULL;p=p->next){
+	headC=creat_C(headC,p->letter);
+}
+printf("\n并运算："); 
+for(struct C *p=headC;p!=NULL;p=p->next){
+	printf("%c ",p->letter);
+}
+headC=alfre(headC);
+//差运算
+headC=opera(headA,headB,headC);
+printf("\n差运算：");
+for(struct C *p=headC;p!=NULL;p=p->next){
+	printf("%c ",p->letter);
+} 
+	return 0;
+}
