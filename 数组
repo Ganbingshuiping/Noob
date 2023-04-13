@@ -1,0 +1,83 @@
+#include <stdio.h>
+#include <string.h>
+ 
+int main(){
+char A[20]={0},B[20]={0},D[20]={0},F[20]={0},G[20]={0};
+int m=0,n=0,k=0,s=0,y=0;
+printf("输入集合A:\n");
+for(;(A[m]=getchar())!='\n';m++);
+printf("输入集合B：\n");
+for(;(B[n]=getchar())!='\n';n++);
+//交运算
+for(int i=0,p=0;i<m;i++){
+	for(int j=0;j<n;j++){
+		if(A[i]==B[j]){
+			D[p]=A[i];
+			p++;
+}
+}
+}
+k=strlen(D);
+//并运算
+for(int i=0;i<m;i++){
+	y=0;
+	for(int j=0;j<k;j++){
+		if(D[j]==A[i])
+			y=1;
+	}
+		if(y==0){
+		F[s]=A[i];
+		s++;}
+}
+for(int j=0;j<n;j++){
+	F[s]=B[j];
+	s++;
+}
+//差运算
+y=0,s=0;
+for(int i=0;i<m;i++){
+	y=0;
+	for(int j=0;j<k;j++){
+		if(D[j]==A[i])
+			y=1;
+	}
+		if(y==0){
+		G[s]=A[i];
+		s++;}
+}
+//输出 
+for(int i=0;i<strlen(D);i++){
+	for(int j=i+1;j<strlen(D);j++){
+	char a;
+	if(D[i]>D[j]){
+		a=D[j];
+		D[j]=D[i];
+		D[i]=a;
+}
+}
+}
+for(int i=0;i<strlen(F);i++){
+	for(int j=i+1;j<strlen(F);j++){
+	char a;
+	if(F[i]>F[j]){
+		a=F[j];
+		F[j]=F[i];
+		F[i]=a;
+}
+}
+}
+for(int i=0;i<strlen(G);i++){
+	for(int j=i+1;j<strlen(G);j++){
+	char a;
+	if(G[i]>G[j]){
+		a=G[j];
+		G[j]=G[i];
+		G[i]=a;
+}
+}
+} 
+printf("交运算%s\n",D);
+printf("并运算%s\n",F);
+printf("差运算%s\n",G);
+return 0;
+}
